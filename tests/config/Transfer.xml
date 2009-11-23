@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transfer xsi:noNamespaceSchemaLocation="transfer.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<includes>
+		<include path="/metro/config/transfer/user.xml" />
+		<include path="/metro/config/transfer/security.xml" />
+		<include path="/metro/config/transfer/work.xml" />
+	</includes>
+	<objectCache>
+		<defaultcache>
+			<scope type="instance"/>
+		</defaultcache>
+	</objectCache>
+	<objectDefinitions>
+ 		<package name="test">
+ 			<object name="Test">
+ 				<id name="UserId" type="numeric"	/>
+ 			</object>
+ 		</package>
+ 	</objectDefinitions>
+</transfer>

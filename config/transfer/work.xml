@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transfer xsi:noNamespaceSchemaLocation="http://www.transfer-orm.com/transfer/resources/xsd/transfer.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <objectDefinitions>
+        <package name="work">
+            <object name="Employee" table="tbl_employee" decorator="metro.model.work.Employee">
+                <compositeid>
+   					<property name="UserName" />
+   					<manytoone name="EmployeeType" />
+   					<parentonetomany class="work.Department" />
+				</compositeid>
+                <property name="Username" type="string" />
+                <property name="FirstName" type="string" />
+                <property name="LastName" type="string" />
+                <property name="Active" type="boolean" />
+                <property name="Underlings" type="numeric" />
+                <manytoone name="EmployeeType">
+                    <link to="work.EmployeeType" column="EmployeeTypeId"/>
+                </manytoone>
+            </object>
+            <object name="EmployeeType" table="tbl_employeetype">
+                <id name="EmployeeTypeId" type="numeric" />
+                <property name="Name" type="string" />
+                <property name="Description" type="string" />
+            </object>
+            <object name="Department" table="tbl_department">
+                <id name="DepartmentId" type="numeric" />
+                <property name="Name" type="string" />
+                <property name="Description" type="string" />
+   	  			<onetomany name="Employee" lazy="true">
+	  				<link to="work.Employee" column="DepartmentId"/>
+					<collection type="array" />
+	  			</onetomany>
+            </object>
+        </package>
+        
+    </objectDefinitions>
+</transfer>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transfer xsi:noNamespaceSchemaLocation="http://www.transfer-orm.com/transfer/resources/xsd/transfer.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <objectDefinitions>
+        <package name="security">
+            <object name="Audit" table="tbl_audit" decorator="metro.model.security.Audit">
+				<id name="Id" column="audit_id" type="numeric" />
+				<property name="ObjectClass" type="string" column="object_class" />
+				<property name="PrimaryKey" type="numeric" column="primary_key"  />
+				<property name="Action" type="string" column="action"  />
+				<property name="AuditDate" type="date" column="audit_date"  />
+				<property name="JsonMemento" type="string" column="memento" nullable="true" />
+				<manytoone name="User" lazy="true" proxied="false">
+					<link to="user.User" column="user_id"/>
+				</manytoone>		
+			</object>
+        </package>
+    </objectDefinitions>
+</transfer>

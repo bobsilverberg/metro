@@ -1,0 +1,21 @@
+.error {
+	padding:.2em;
+	margin-bottom:1em;
+	border:1px solid #ddd;
+	background:#FBE3E4;
+	color:#8a1f11;
+	border-color:#FBC2C4;
+}
+.error a {color:#8a1f11;}
+
+.inline {
+	float: left;
+	margin-right: 10px;
+	width: 180px;
+}
+
+.required {
+	 font-weight:bold;
+}
+
+.formitem { padding:.5em; margin:0em; }

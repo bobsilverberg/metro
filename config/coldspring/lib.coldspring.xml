@@ -1,0 +1,21 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean id="beanInjector" class="metro.lib.BeanInjector" />
+	
+	<bean id="TDOBeanInjectorObserver" class="metro.lib.TDOBeanInjectorObserver" lazy-init="false">
+		<constructor-arg name="transfer">
+			<ref bean="transfer" />
+		</constructor-arg>
+		<constructor-arg name="afterCreateMethod">
+			<value>setup</value>
+		</constructor-arg>
+		<property name="beanInjector">
+			<ref bean="beanInjector" />
+		</property>
+		<property name="MetadataInspector">
+			<ref bean="MetadataInspector" />
+		</property>
+	</bean>
+
+</beans>

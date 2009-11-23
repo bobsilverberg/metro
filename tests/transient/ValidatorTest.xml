@@ -1,0 +1,10 @@
+<beans>
+	<bean id="mockFactory" class="metro.lib.MockFactory" singleton="true" />
+
+	<bean id="mockBO" factory-bean="MockFactory" factory-method="createMock">
+		<constructor-arg name="objectToMock">
+			<value>metro.core.Decorator</value>
+		</constructor-arg>
+	</bean>
+	
+</beans>

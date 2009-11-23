@@ -1,0 +1,65 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	 <!-- import common configurations -->
+	<import resource="/metro/config/coldspring/util.coldspring.xml" />
+	<import resource="/metro/config/coldspring/lib.coldspring.xml" />
+	<import resource="/metro/config/coldspring/transfer.coldspring.xml" />
+	<import resource="/metro/config/coldspring/factory.coldspring.xml" />
+	
+	<!-- service beans -->
+	<bean id="WorkService" factory-bean="ServiceFactory" factory-method="getService">
+		<constructor-arg name="packageName"><value>work</value></constructor-arg>
+	</bean>
+
+	 <bean id="UserService" factory-bean="ServiceFactory" factory-method="getService">
+		<constructor-arg name="packageName"><value>user</value></constructor-arg>
+	</bean>
+	 
+	<bean id="SecurityService" factory-bean="ServiceFactory" factory-method="getService">
+		<constructor-arg name="packageName"><value>security</value></constructor-arg>
+		<property name="UserService">
+			<ref bean="UserService" />
+		</property>
+	</bean>
+	
+	<bean id="AuditMap" class="coldspring.beans.factory.config.MapFactoryBean">
+	    <property name="sourceMap">
+	        <map>
+	            <entry key="create">
+	            	<map>
+		            	<entry key="user.User">
+			                <value>createAuditRecord</value>
+			            </entry>
+			        </map>
+	            </entry>
+	            <entry key="update">
+	                <map>
+		            	<entry key="user.User">
+			                <value>createAuditRecord</value>
+			            </entry>
+			        </map>
+	            </entry>
+	            <entry key="delete">
+	                <map>
+		            	<entry key="user.User">
+			                <value>createAuditRecord</value>
+			            </entry>
+			        </map>
+	            </entry>
+	        </map>
+	    </property>
+	</bean>
+  
+	<bean id="TransferAuditObserver" class="metro.model.security.TransferAuditObserver" lazy-init="false">
+		<constructor-arg name="transfer">
+			<ref bean="transfer" />
+		</constructor-arg>
+		<constructor-arg name="auditMap">
+			<ref bean="auditMap" />
+		</constructor-arg>
+		<property name="SecurityService">
+			<ref bean="SecurityService" />
+		</property>
+	</bean>
+
+</beans>

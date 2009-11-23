@@ -1,0 +1,14 @@
+<beans>
+
+	<bean id="EmployeeGateway" class="metro.core.Gateway">
+		<constructor-arg name="className">
+			<value>work.Employee</value>
+		</constructor-arg>
+		<property name="transfer">
+			<ref bean="transfer" />
+		</property>
+		<property name="datasource">
+			<ref bean="datasource" />
+		</property>
+	</bean>
+</beans>

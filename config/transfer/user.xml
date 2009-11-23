@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transfer xsi:noNamespaceSchemaLocation="http://www.transfer-orm.com/transfer/resources/xsd/transfer.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <objectDefinitions>
+        <package name="user">
+            <object name="User" table="tbl_user" decorator="metro.model.user.User">
+                <id name="Id" column="user_id" type="numeric" />
+                <property name="FirstName" type="string" column="first_name" />
+                <property name="LastName" type="string" column="last_name" />
+                <property name="Email" type="string" column="email" />
+                <property name="Username" type="string" column="username" />
+                <property name="Password" type="string" column="password" />
+                <property name="IsEnabled" type="boolean" column="is_enabled" />
+                <property name="IsDeleted" type="boolean" column="is_deleted" />
+                <manytoone name="Role" lazy="false">
+                    <link to="user.Role" column="role_id"/>
+                </manytoone>	
+            </object>
+            <object name="Role" table="tbl_role" decorator="metro.model.user.Role">
+                <id name="Id" column="role_id" type="numeric" />
+                <property name="Name" type="string" column="name" />
+                <property name="Description" type="string" column="description" />
+                <manytomany name="Permission" table="tbl_role_permission" lazy="false" proxied="false">
+                    <link column="role_id" to="user.Role"/>
+                    <link column="permission_id" to="user.Permission"/>
+                    <collection type="array">
+                        <order property="Name"/>
+                    </collection>
+                </manytomany>
+            </object>
+            <object name="Permission" table="tbl_permission" decorator="metro.model.user.Permission">
+                <id name="Id" column="permission_id" type="numeric" />
+                <property name="Name" type="string" column="name" />
+                <property name="Description" type="string" column="description" />
+            </object>
+        </package>
+    </objectDefinitions>
+</transfer>

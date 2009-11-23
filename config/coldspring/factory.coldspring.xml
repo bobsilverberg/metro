@@ -1,0 +1,57 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+		
+	<bean id="ServiceFactory" class="metro.factory.ServiceFactory" lazy-init="false">
+		<constructor-arg name="TransferConfig">
+			<ref bean="TransferConfig" />
+		</constructor-arg>
+		<constructor-arg name="componentPath">
+			<value>${componentPath}</value>
+		</constructor-arg>
+		<constructor-arg name="libPath">
+			<value>${libPath}</value>
+		</constructor-arg>
+		<constructor-arg name="afterCreateMethod">
+			<value>setup</value>
+		</constructor-arg>
+		<property name="beanInjector">
+			<ref bean="beanInjector" />
+		</property>
+		<property name="MetadataInspector">
+			<ref bean="MetadataInspector" />
+		</property>
+		
+	</bean>	
+
+	<bean id="transients" class="coldspring.beans.factory.config.MapFactoryBean">
+	    <property name="sourceMap">
+	        <map>
+	            <entry key="Cache">
+					<value>metro.transient.Cache</value>
+				</entry>
+				<entry key="Result">
+					<value>metro.transient.Result</value>
+				</entry>
+				<entry key="Timer">
+					<value>metro.transient.Timer</value>
+				</entry>
+				<entry key="Validator">
+					<value>metro.transient.Validator</value>
+				</entry>
+	        </map>
+	    </property>
+	</bean>
+
+	<bean id="TransientFactory" class="metro.factory.TransientFactory">
+		<constructor-arg name="classes">
+			<ref bean="transients" />
+		</constructor-arg>
+		<constructor-arg name="afterCreateMethod">
+			<value>setup</value>
+		</constructor-arg>
+		<property name="beanInjector">
+			<ref bean="beanInjector" />
+		</property>
+	</bean>
+	
+</beans>
